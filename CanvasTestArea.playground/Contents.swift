@@ -18,7 +18,7 @@ import Cocoa
 import PlaygroundSupport
 
 // Create a new canvas
-let canvas = Canvas(width: 300, height: 500)
+let canvas = Canvas(width: 500, height: 500)
 
 // View the current state of the canvas
 canvas
@@ -27,7 +27,51 @@ canvas
 canvas.drawAxes()
 
 // Add code below...
+let axiom = "F++F++F"
+let rule = "F-F++F-F"
+var word = axiom
+let n = 2
+var initialLength = 300
+let reduction = 3
 
+for _ in 1...n {
+    
+    var newWord = ""
+    
+    // Re-write the word
+    for char in word.characters {
+        
+        if char == "F" {
+            newWord.append(rule)
+        } else {
+            newWord.append(char)
+        }
+        
+    }
+    
+    word = newWord
+    
+}
+
+canvas.translate(byX: 0, byY: 100)
+canvas.saveState()
+
+var currentLength = Int(Double(initialLength) / pow(Double(reduction), Double(n)))
+
+for char in word.characters {
+    if char == "F" {
+        canvas.drawLine(fromX: 0, fromY: 0, toX: 100, toY: 0)
+        canvas.translate(byX: 100, byY: 0)
+    }
+    if char == "+" {
+        canvas.rotate(by: 60)
+    }
+    if char == "-" {
+        canvas.rotate(by: -60)
+    }
+}
+
+canvas.restoreState()
 
 /*:
  
